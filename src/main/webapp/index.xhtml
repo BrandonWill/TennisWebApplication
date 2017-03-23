@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet library="css" name="table-style.css"  />
+    </h:head>
+    <h:body>
+
+        <h1>Tennis Player Data</h1>
+
+        <h:form>
+            <p:dataTable var="p" value="#{player.playerArrayList}"
+                         widgetVar="playersTable"
+                         multiViewState="true"
+                         emptyMessage="No database or search found"
+                         filteredValue="#{player.filteredPlayers}"
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('playersTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column filterBy="#{p.id}" headerText="Id" filterMatchMode="contains">
+                    <h:outputText value="#{p.id}" />
+                </p:column>
+                <p:column filterBy="#{p.name}" headerText="Name" filterMatchMode="contains">
+                    <h:outputText value="#{p.name}" />
+                </p:column>
+                <p:column filterBy="#{p.nationality}" headerText="Nationality" filterMatchMode="contains">
+                    <h:outputText value="#{p.nationality}" />
+                </p:column>
+                <p:column filterBy="#{p.gender}" headerText="Gender" filterMatchMode="in">
+                    <f:facet name="filter">
+                        <p:selectCheckboxMenu label="Genders" onchange="PF('playersTable').filter()" panelStyle="width:125px" scrollHeight="150">
+                            <f:selectItems value="#{player.allGenders}" />
+                        </p:selectCheckboxMenu>
+                    </f:facet>
+                    <h:outputText value="#{p.gender}" />
+                </p:column>
+                <p:column filterBy="#{p.actualAge}" headerText="Age" filterMatchMode="contains">
+                    <h:outputText value="#{p.actualAge}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>      
+    </h:body>
+
+</html>
