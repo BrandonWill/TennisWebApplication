@@ -84,7 +84,6 @@ public class PlayerBean implements Serializable {
                     } else {
                         player.setAge(LocalDate.MIN);
                     }
-                    System.out.println("nationality: " +nationality);
                     if (nationality != null && !nationality.equals("null") && nationality.length() > 1) {
                         player.setNationality(nationality);
                     } else {
