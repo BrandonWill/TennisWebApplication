@@ -1,0 +1,6 @@
+
+.ui-widget-content {
+    border: 1px solid #000000;
+    /* background: #000000 url(/JavaServerFaces/faces/javax.faces.resource/images/ui-bg_loop_25_000000_21x21.png?ln=primefaces-dark-hive) 50% 50% repeat; */
+    color: #ffffff;
+}

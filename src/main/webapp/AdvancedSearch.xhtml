@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <link id="sidebar" rel="stylesheet" href="assets/css/main.css" />
+        <h:outputStylesheet library="css" name="table-style.css"  />
+        <title>Tennis Project</title>
+    </h:head>
+
+    <h:body id="wrapper" class="wrapper">
+
+        <h:outputStylesheet name="css/table-style.css" />
+        <!--<link id="one" rel="stylesheet" href="assets/css/table-style.css" />-->
+
+
+        <!-- Sidebar -->
+        <section id="sidebar">
+            <div class="inner">
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml">Welcome</a></li>
+                        <li><a href="AdvancedSearch.xhtml">Advanced Search</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Wrapper -->
+        <div id="wrapper">        
+            
+            <section id="one" class="wrapper style1 fullscreen fade-up">
+                <h2>Tennis Player Search</h2>
+                <h:form>
+                    <p:commandButton value="Download CSV" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{player.downloadFile}" />
+                    </p:commandButton>
+                    <p:dataTable var="p" value="#{player.playerArrayList}"
+                                 widgetVar="playersTable"
+                                 multiViewState="true"
+                                 emptyMessage="No database or search found"
+                                 filteredValue="#{player.filteredPlayers}"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 >
+
+                        <p:column filterBy="#{p.id}" headerText="Id" filterMatchMode="contains" style="width:150px">
+                            <h:outputLink id="link1" value="http://www.itftennis.com/juniors/players/player/profile.aspx?playerid=#{p.id}" target="_blank">
+                                <h:outputText value="#{p.id}" />
+                            </h:outputLink>
+                        </p:column>
+                        <p:column filterBy="#{p.name}" headerText="Name" filterMatchMode="contains" style="width:250px">
+                            <h:outputText value="#{p.name}" />
+                        </p:column>
+                        <p:column filterBy="#{p.nationality}" headerText="Nationality" filterMatchMode="contains" style="width:150px">
+                            <h:outputText value="#{p.nationality}" />
+                        </p:column>
+                        <p:column filterBy="#{p.actualAge}" headerText="Age" filterFunction="#{player.filterByAge}" style="width:150px">
+                            <h:outputText value="#{p.actualAge}" />
+                        </p:column>
+                        <p:column filterBy="#{p.gender}" headerText="Gender" filterMatchMode="in" style="width:150px">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="Genders" onchange="PF('playersTable').filter()" panelStyle="width:125px" scrollHeight="150">
+                                    <f:selectItems value="#{player.allGenders}" />
+                                </p:selectCheckboxMenu>
+                            </f:facet>
+                            <h:outputText value="#{p.gender}" />
+                        </p:column>
+                        <p:column filterBy="#{p.inATournament}" headerText="Recently in a Tournament" filterMatchMode="equals" style="width:250px">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('playersTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="All" itemValue="" />
+                                    <f:selectItem itemLabel="Yes" itemValue="true" />
+                                    <f:selectItem itemLabel="No" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{p.inATournament ? 'Recently in a tournament': 'No tournament data'}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGradeA}" headerText="Grade A" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGradeA}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGradeARecord}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGradeARecord}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade1}" headerText="Grade 1" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade1}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade1Record}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade1Record}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade2}" headerText="Grade 2" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade2}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade2Record}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade2Record}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade3}" headerText="Grade 3" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade3}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade3Record}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade3Record}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade4}" headerText="Grade 4" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade4}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade4Record}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade4Record}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade5}" headerText="Grade 5" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade5}" />
+                        </p:column>
+                        <p:column filterBy="#{p.furthestInGrade5Record}" headerText="Record" filterMatchMode="contains" style="width:100px">
+                            <h:outputText value="#{p.furthestInGrade5Record}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>  
+            </section>
+
+        </div>
+    </h:body>
+</html>

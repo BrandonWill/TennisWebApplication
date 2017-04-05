@@ -4,57 +4,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      >
     <h:head>
+        <link id="sidebar" rel="stylesheet" href="assets/css/main.css" />
         <h:outputStylesheet library="css" name="table-style.css"  />
+        <title>Tennis Project</title>
     </h:head>
-    <h:body>
 
-        <h1>Tennis Player Data</h1>
+    <h:body id="wrapper" class="wrapper">
 
-        <h:form>
-            <p:dataTable var="p" value="#{player.playerArrayList}"
-                         widgetVar="playersTable"
-                         multiViewState="true"
-                         emptyMessage="No database or search found"
-                         filteredValue="#{player.filteredPlayers}"
-                         rows="10"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15"
-                         >
+        <h:outputStylesheet name="css/table-style.css" />
+        <!--<link id="one" rel="stylesheet" href="assets/css/table-style.css" />-->
 
-                <f:facet name="header">
-                    <p:outputPanel>
-                        <h:outputText value="Search all fields:" />
-                        <p:inputText id="globalFilter" onkeyup="PF('playersTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-                    </p:outputPanel>
-                </f:facet>
 
-                <p:column filterBy="#{p.id}" headerText="Id" filterMatchMode="contains">
-                    <h:outputText value="#{p.id}" />
-                </p:column>
-                <p:column filterBy="#{p.name}" headerText="Name" filterMatchMode="contains">
-                    <h:outputText value="#{p.name}" />
-                </p:column>
-                <p:column filterBy="#{p.nationality}" headerText="Nationality" filterMatchMode="contains">
-                    <h:outputText value="#{p.nationality}" />
-                </p:column>
-                <p:column filterBy="#{p.gender}" headerText="Gender" filterMatchMode="in">
-                    <f:facet name="filter">
-                        <p:selectCheckboxMenu label="Genders" onchange="PF('playersTable').filter()" panelStyle="width:125px" scrollHeight="150">
-                            <f:selectItems value="#{player.allGenders}" />
-                        </p:selectCheckboxMenu>
-                    </f:facet>
-                    <h:outputText value="#{p.gender}" />
-                </p:column>
-                <p:column filterBy="#{p.actualAge}" headerText="Age" filterMatchMode="contains">
-                    <h:outputText value="#{p.actualAge}" />
-                </p:column>
-            </p:dataTable>
-        </h:form>      
+        <!-- Sidebar -->
+        <section id="sidebar">
+            <div class="inner">
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml">Welcome</a></li>
+                        <li><a href="AdvancedSearch.xhtml">Advanced Search</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Wrapper -->
+        <div id="wrapper">        
+
+
+            <!-- Intro -->
+            <section id="intro" class="wrapper style1 fullscreen fade-up">
+                <div class="inner">
+                    <h1>Tennis Project 2</h1>
+                    <p>This website was developed to provide a better search function for <a href="http://itftennis.com/juniors/players/player-search.aspx">ITF Tennis Juniors</a><br />
+                        and was developed to help the UNC Charlotte tennis team find players to give scholarships to.</p>
+                    <ul class="actions">
+                        <li><a href="AdvancedSearch.xhtml" class="button scrolly">Continue to Advance Search</a></li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+        
+        
     </h:body>
-
 </html>

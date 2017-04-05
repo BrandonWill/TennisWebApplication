@@ -8,12 +8,14 @@
 	
   <display-name>JavaServerFaces</display-name>
   
-  <!-- 
-  <context-param>
-    <param-name>facelets.SKIP_COMMENTS</param-name>
-    <param-value>true</param-value>
-  </context-param>
-   -->
+    <listener>
+        <listener-class>com.mkyong.TennisServletContextListener</listener-class>
+    </listener>
+   
+       <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>dark-hive</param-value>
+    </context-param>
   
   <!-- Change to "Production" when you are ready to deploy -->
   <context-param>

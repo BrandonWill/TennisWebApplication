@@ -1,22 +1,32 @@
-.order-table{   
-	border-collapse:collapse;
+.ui-widget-content {
+    border: 1px solid #000000;
+    background: none;
+    color: #ffffff;
 }
 
-.order-table-header{
-	text-align:center;
-	background:none repeat scroll 0 0 #E5E5E5;
-	border-bottom:1px solid #BBBBBB;
-	padding:16px;
+.ui-datatable-header {
+    display: -webkit-box;
+    border-bottom: 0 none;
 }
 
-.order-table-odd-row{
-	text-align:center;
-	background:none repeat scroll 0 0 #FFFFFFF;
-	border-top:1px solid #BBBBBB;
+.ui-paginator .ui-paginator-next .ui-icon, .ui-paginator .ui-paginator-prev .ui-icon, .ui-paginator .ui-paginator-first .ui-icon, .ui-paginator .ui-paginator-last .ui-icon {
+    height: 16px;
+    overflow: hidden;
 }
 
-.order-table-even-row{
-	text-align:center;
-	background:none repeat scroll 0 0 #F9F9F9;
-	border-top:1px solid #BBBBBB;
+.ui-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url(/JavaServerFaces/faces/javax.faces.resource/images/ui-icons_cccccc_256x240.png?ln=primefaces-dark-hive);
+}
+
+.ui-widget {
+    font-size: 12px;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-items-wrapper {
+    overflow: auto;
+    position: relative;
+    padding: .2em 0;
+    background: black;
 }
