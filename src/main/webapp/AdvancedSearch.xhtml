@@ -32,13 +32,17 @@
 
         <!-- Wrapper -->
         <div id="wrapper">        
-            
+
             <section id="one" class="wrapper style1 fullscreen fade-up">
                 <h2>Tennis Player Search</h2>
                 <h:form>
                     <p:commandButton value="Download CSV" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                         <p:fileDownload value="#{player.downloadFile}" />
                     </p:commandButton>
+                    <p:fileUpload value="#{player.file}" mode="advanced" auto="true"
+                                  label="Upload CSV"
+                                  fileUploadListener="#{player.fileUploadListener}"
+                                  update="tennisPlayerTable"></p:fileUpload>
                     <p:dataTable var="p" value="#{player.playerArrayList}"
                                  widgetVar="playersTable"
                                  multiViewState="true"
@@ -48,6 +52,7 @@
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  rowsPerPageTemplate="5,10,15"
+                                 id="tennisPlayerTable"
                                  >
 
                         <p:column filterBy="#{p.id}" headerText="Id" filterMatchMode="contains" style="width:150px">

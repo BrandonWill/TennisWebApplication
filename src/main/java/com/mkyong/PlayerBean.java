@@ -9,6 +9,7 @@ package com.mkyong;
  *
  * @author Brandon
  */
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,11 +33,15 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "player")
 @SessionScoped
@@ -45,6 +51,55 @@ public class PlayerBean implements Serializable {
     private static ArrayList<Player> playerList = new ArrayList<Player>();
     private ArrayList<Player> filteredPlayers = new ArrayList<Player>();
     private static final String genders[];
+    private UploadedFile file;
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public void fileUploadListener(FileUploadEvent e) {
+        // Get uploaded file from the FileUploadEvent
+        this.file = e.getFile();
+
+        handleUpload();
+    }
+
+    private void handleUpload() {
+        if (file != null) {
+            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            filteredPlayers.clear();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputstream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (!line.contains("Nationality")) {
+                        String[] values = line.split(",");
+//                        System.out.println("Values: " + Arrays.toString(values));
+                        if (values.length >= 2) {
+                            int playerID = Integer.parseInt(values[1]);
+                            for (int i = 0; i < playerList.size(); i++) {
+                                if (playerList.get(i).getId() == playerID) {
+                                    filteredPlayers.add(playerList.get(i));
+//                                    System.out.println("Found player: " + playerList.get(i).getName());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(PlayerBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            FacesMessage popup = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Searching gives the result for ALL players and will remove this data from the table. This is for easy calculations later on!");
+
+            RequestContext.getCurrentInstance().showMessageInDialog(popup);
+        }
+    }
 
     static {
         genders = new String[2];
@@ -90,6 +145,9 @@ public class PlayerBean implements Serializable {
     }
 
     public ArrayList<Player> getPlayerArrayList() {
+        if (filteredPlayers != null && !filteredPlayers.isEmpty()) {
+            return filteredPlayers;
+        }
         if (!playerList.isEmpty()) {
             if (filteredPlayers != null && filteredPlayers.isEmpty()) {
                 filteredPlayers.addAll(playerList);

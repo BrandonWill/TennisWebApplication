@@ -30,3 +30,21 @@
     padding: .2em 0;
     background: black;
 }
+
+
+.ui-fileupload-buttonbar {
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 19px;
+}
+
+.ui-dialog .ui-dialog-content {
+    position: relative;
+    border: 0;
+    padding: .5em 1em;
+    background: 0;
+    overflow: auto;
+    zoom: 1;
+    background-color: black;
+}
