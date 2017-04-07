@@ -9,5 +9,6 @@ This website is currently being hosted at: http://64.137.210.107:8080/JavaServer
 The server is rather slow and there's a large amount of data, so please be patient when filtering. It also accepts multiple filters.
 
 # Preview
-![website screenshot](http://i.imgur.com/VV9xMH6.png)
+![website screenshot](http://i.imgur.com/l5IxAH0.png)
+![website screenshot](http://i.imgur.com/Yskfrjp.jpg)
 
